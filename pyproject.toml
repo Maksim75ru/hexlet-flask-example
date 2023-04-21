@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "hexlet-flask-example"
+version = "0.1.0"
+description = ""
+authors = ["Maksim Lesnikov <maximborzya75@gmail.com>"]
+readme = "README.md"
+packages = [{include = "hexlet_flask_example"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.2.3"
+flask-wtf = "*"
+email-validator = "^2.0.0.post1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

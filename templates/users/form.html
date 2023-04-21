@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New user</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+    <h1>New User</h1>
+    <hr>
+    {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+    <br>
+    <form action="{{ url_for('user_post') }}" method="post">
+        <div>
+            <label>
+                Nickname
+                <input type="text" class="fields" name="nickname" required value="{{ user.nickname }}"/>
+            </label>
+            {% if errors['nickname'] %}
+                <div >{{ errors['nickname'] }}</div>
+            {% endif %}
+        </div>
+        <div>
+            <label>
+                Email
+                <input type="text" class="fields" name="email" required value="{{ user.email }}"/>
+            </label>
+            {% if errors['email'] %}
+                <div >{{ errors['email'] }}</div>
+            {% endif %}
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
