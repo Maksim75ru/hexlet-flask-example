@@ -1,10 +1,12 @@
 # hexlet-flask-example
 
-install:
+### Учебный проект по фреймворку Flask
+
+make install:
 	poetry install
 
-start:
+make start:
 	poetry run flask --app example --debug run
 
-package-install:
+make package-install:
 	python3 -m pip install --user --force-reinstall dist/*.whl
