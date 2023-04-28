@@ -5,7 +5,8 @@ from flask import (
     redirect,
     url_for,
     flash,
-    get_flashed_messages
+    get_flashed_messages,
+    session
 )
 import json
 from uuid import uuid4
@@ -16,10 +17,6 @@ from email_validator import validate_email, EmailNotValidError
 app = Flask(__name__)
 app.config['SECRET_KEY'] = uuid4().hex
 
-
-@app.route('/')
-def hello_world():
-    return 'Hello Hexlet!'
 
 @app.route('/courses/<int:id>')
 def courses(id):
@@ -168,3 +165,31 @@ def delete_user(id):
     flash('Вы успешно удалили пользователя', category='success')
 
     return redirect(url_for('get_users'), 302)
+
+
+""" Вход пользователя по логину и сохранение доступа в сессии
+Также реализовано удаление данных из сессии
+"""
+
+@app.get('/')
+def index():
+    if 'username' in session:
+        # return f'Logged in as {session["username"]}'
+        users = session.values()
+        return render_template('users/login_users.html', users=users)
+    return 'You are not logged in'
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+    return render_template('users/login_form.html')
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
