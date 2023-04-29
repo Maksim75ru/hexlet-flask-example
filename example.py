@@ -171,20 +171,23 @@ def delete_user(id):
 Также реализовано удаление данных из сессии
 """
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    if 'username' in session:
-        # return f'Logged in as {session["username"]}'
-        users = session.values()
-        return render_template('users/login_users.html', users=users)
-    return 'You are not logged in'
+    if request.method == 'POST':
+        if 'username' in session:
+            # return f'Logged in as {session["username"]}'
+            users = session.values()
+            return render_template('users/login_users.html', users=users)
+
+    if request.method == 'GET':
+        return render_template('users/base.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         session['username'] = request.form['username']
-        return redirect(url_for('index'))
+        return 'You logged user'
     return render_template('users/login_form.html')
 
 
