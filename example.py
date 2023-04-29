@@ -171,7 +171,7 @@ def delete_user(id):
 Также реализовано удаление данных из сессии
 """
 
-@app.get('/')
+@app.route('/')
 def index():
     if 'username' in session:
         # return f'Logged in as {session["username"]}'
